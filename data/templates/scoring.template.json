@@ -1,0 +1,20 @@
+{
+  "maxTier": "[4 or 5 — confirm]",
+  "answerValues": {
+    "yes": "[points]",
+    "partially": "[points]",
+    "no": "[points]"
+  },
+  "categoryScore": "[How a category's tier is computed from its answers, e.g. average of answer points mapped to tiers]",
+  "functionScore": "[How a function's tier is computed from its categories, e.g. simple or weighted average]",
+  "overallScore": "[How the overall current tier is computed]",
+  "tierLabels": {
+    "1": "[e.g. Partial]",
+    "2": "[e.g. Risk Informed]",
+    "3": "[e.g. Repeatable]",
+    "4": "[e.g. Adaptive]"
+  },
+  "targetTier": "[Where the target comes from: chosen by the user, or set by company size / industry]",
+  "riskLevel": "[Rule that maps scores or gaps to low / medium / high / critical]",
+  "heatmap": "[How issues are placed by impact and likelihood]"
+}

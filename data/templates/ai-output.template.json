@@ -1,0 +1,30 @@
+{
+  "request_sent_by_web": {
+    "assessmentId": "string",
+    "framework": "nist-csf-2",
+    "company": { "industry": "string", "companySize": "string", "itInfrastructure": "string", "cloudEnvironment": "string" },
+    "answers": [{ "questionId": "GV.PO-01", "value": "yes | partially | no", "note": "string | null" }],
+    "scores": {
+      "currentTier": 0,
+      "targetTier": 0,
+      "functions": [{ "function": "GV", "current": 0, "target": 0 }]
+    }
+  },
+  "response_expected_from_ai": {
+    "summary": "string",
+    "keyFindings": [{ "title": "string", "detail": "string", "priority": "high | medium | low" }],
+    "recommendations": [{ "title": "string", "detail": "string", "priority": "high | medium | low" }],
+    "weaknesses": ["string"],
+    "improvements": ["string"],
+    "actionPlan": [
+      {
+        "title": "string",
+        "priority": "high | medium | low",
+        "responsibleTeam": "string",
+        "estimatedCost": "string",
+        "phase": "0-3 months | 4-6 months | 7-12 months"
+      }
+    ]
+  },
+  "notes": "Send this back with real examples. Timeout on the web side is 60 seconds."
+}

@@ -1,0 +1,16 @@
+{
+  "framework": "nist-csf-2",
+  "version": "[e.g. 1.0]",
+  "questions": [
+    {
+      "id": "[e.g. GV.PO-01]",
+      "function": "[GV | ID | PR | DE | RS | RC]",
+      "category": "[e.g. GV.PO]",
+      "categoryName": "[e.g. Policy]",
+      "text": "[Question shown to the user]",
+      "description": "[Optional help text]",
+      "evidenceRequired": false,
+      "sets": ["full", "quick"]
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "isMock": true,
+  "keyFindings": [
+    { "title": "[Finding — from AI]", "detail": "[Explanation from AI]", "priority": "high" },
+    { "title": "[Finding — from AI]", "detail": "[Explanation from AI]", "priority": "medium" },
+    { "title": "[Finding — from AI]", "detail": "[Explanation from AI]", "priority": "low" }
+  ],
+  "recommendations": [
+    { "title": "[Recommendation from AI]", "detail": "[Detail and rationale]", "priority": "high" },
+    { "title": "[Recommendation from AI]", "detail": "[Detail and rationale]", "priority": "medium" },
+    { "title": "[Recommendation from AI]", "detail": "[Detail and rationale]", "priority": "low" }
+  ],
+  "weaknesses": ["[Weakness from AI]", "[Weakness from AI]"],
+  "improvements": ["[Suggested improvement from AI]", "[Suggested improvement from AI]"]
+}

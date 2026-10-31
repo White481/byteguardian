@@ -1,0 +1,46 @@
+{
+  "isMock": true,
+  "assessment": { "id": "mock-assessment-1", "completedAt": "2026-10-31T14:30:00+07:00", "status": "completed" },
+  "summary": {
+    "currentTier": 2.4,
+    "currentTierLabel": "Risk Informed",
+    "targetTier": 3.0,
+    "targetTierLabel": "Repeatable",
+    "overallGap": 0.6,
+    "riskLevel": "medium",
+    "maxTier": 4
+  },
+  "functionScores": [
+    { "function": "GV", "name": "Govern", "current": 2.4, "target": 3.0 },
+    { "function": "ID", "name": "Identify", "current": 2.2, "target": 3.0 },
+    { "function": "PR", "name": "Protect", "current": 2.3, "target": 3.0 },
+    { "function": "DE", "name": "Detect", "current": 2.3, "target": 3.0 },
+    { "function": "RS", "name": "Respond", "current": 2.5, "target": 3.0 },
+    { "function": "RC", "name": "Recover", "current": 2.8, "target": 3.0 }
+  ],
+  "categoryScores": [
+    { "category": "GV.OC", "name": "Organizational Context", "current": 2.4 },
+    { "category": "GV.RM", "name": "Risk Management Strategy", "current": 2.5 },
+    { "category": "GV.PO", "name": "Policy", "current": 2.0 },
+    { "category": "ID.AM", "name": "Asset Management", "current": 2.3 },
+    { "category": "ID.RA", "name": "Risk Assessment", "current": 2.3 },
+    { "category": "PR.AA", "name": "Identity Management & Access", "current": 2.0 },
+    { "category": "PR.DS", "name": "Data Security", "current": 2.8 },
+    { "category": "PR.AT", "name": "Awareness & Training", "current": 2.0 },
+    { "category": "DE.CM", "name": "Continuous Monitoring", "current": 2.0 },
+    { "category": "DE.AE", "name": "Adverse Event Analysis", "current": 2.5 },
+    { "category": "RS.MA", "name": "Incident Management", "current": 2.2 },
+    { "category": "RC.RP", "name": "Recovery Plan Execution", "current": 3.0 }
+  ],
+  "risk": {
+    "overallScore": 62,
+    "counts": { "critical": 2, "high": 5, "medium": 9, "low": 6 },
+    "heatmap": [[1, 2, 3], [2, 4, 2], [3, 2, 1]],
+    "topRisks": [
+      { "title": "Incident Response", "level": "high" },
+      { "title": "Network Monitoring", "level": "medium" },
+      { "title": "Access Control", "level": "medium" },
+      { "title": "Data Loss Prevention", "level": "low" }
+    ]
+  }
+}

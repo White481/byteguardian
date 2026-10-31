@@ -1,0 +1,63 @@
+@import "tailwindcss";
+
+/*
+ * ByteGuardian design tokens — dark navy / electric blue / cyan.
+ * Use these via Tailwind classes, e.g. bg-surface, text-muted, border-line, bg-primary.
+ * Values match the Figma file "ByteGuardian — UI Flow" (source of truth for the design).
+ * Do NOT hardcode hex colors in components; add a token here instead.
+ */
+@theme {
+  --color-bg: #040a1a;
+  --color-sidebar: #071027;
+  --color-surface: #0a1530;
+  --color-surface-2: #0f1d3f;
+  --color-surface-3: #16264d;
+  --color-line: #1d2d55;
+  --color-line-strong: #2b3f72;
+  --color-fg: #e6ecff;
+  --color-fg-soft: #c9d4f2;
+  --color-muted: #9aa9cf;
+  --color-subtle: #7d8db5;
+
+  --color-primary: #2563eb;
+  --color-primary-hover: #3b76f5;
+  --color-accent: #4f8bff;  /* links, chart "current" series */
+  --color-cyan: #22d3ee;
+  --color-violet: #a78bfa;  /* chart "target" series */
+
+  --color-success: #22c55e;
+  --color-warning: #f59e0b;
+  --color-danger: #ef4444;
+  --color-info: #38bdf8;
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  --shadow-glow: 0 0 0 1px rgb(47 107 255 / 0.35), 0 8px 30px -8px rgb(47 107 255 / 0.45);
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-fg);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Subtle cyber grid background for hero / auth panels */
+.bg-cyber-grid {
+  background-image:
+    radial-gradient(circle at 70% 20%, rgb(47 107 255 / 0.25), transparent 50%),
+    linear-gradient(rgb(29 45 85 / 0.35) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(29 45 85 / 0.35) 1px, transparent 1px);
+  background-size: auto, 40px 40px, 40px 40px;
+}
+
+.text-gradient {
+  background: linear-gradient(90deg, var(--color-primary), var(--color-cyan));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}

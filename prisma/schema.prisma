@@ -1,0 +1,134 @@
+// ByteGuardian data model (foundation draft)
+// Dev: SQLite. Switch provider to "postgresql" for the real PostgreSQL database.
+// Status/enum-like fields are String to stay SQLite-compatible; allowed values are in comments
+// and in src/lib/types.ts.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  fullName     String
+  email        String   @unique
+  passwordHash String?
+  role         String   @default("member") // admin | member | viewer
+  companyId    String?
+  company      Company? @relation(fields: [companyId], references: [id])
+  sessions     Session[]
+  assessments  Assessment[]
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+}
+
+model Company {
+  id                  String   @id @default(cuid())
+  name                String
+  industry            String?
+  companySize         String?
+  employeeCount       String?
+  annualRevenue       String?
+  country             String?
+  itInfrastructure    String?
+  cloudEnvironment    String?
+  onboardingCompleted Boolean  @default(false)
+  users               User[]
+  assessments         Assessment[]
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+}
+
+model Assessment {
+  id           String    @id @default(cuid())
+  companyId    String
+  company      Company   @relation(fields: [companyId], references: [id])
+  createdById  String
+  createdBy    User      @relation(fields: [createdById], references: [id])
+  type         String    // full | quick | custom
+  framework    String    // nist-csf-2 | iso-27001 | cis
+  status       String    @default("draft") // draft | in_progress | submitted | processing | completed | failed
+  currentIndex Int       @default(0) // resume position in questionnaire
+  answers      Answer[]
+  result       AssessmentResult?
+  actionItems  ActionItem[]
+  reports      Report[]
+  startedAt    DateTime  @default(now())
+  submittedAt  DateTime?
+  completedAt  DateTime?
+  updatedAt    DateTime  @updatedAt
+}
+
+model Answer {
+  id           String     @id @default(cuid())
+  assessmentId String
+  assessment   Assessment @relation(fields: [assessmentId], references: [id], onDelete: Cascade)
+  questionId   String     // matches question id in the question dataset (e.g. "GV.OC-01")
+  value        String     // yes | partially | no
+  note         String?
+  evidence     Evidence[]
+  updatedAt    DateTime   @updatedAt
+
+  @@unique([assessmentId, questionId])
+}
+
+model Evidence {
+  id         String   @id @default(cuid())
+  answerId   String
+  answer     Answer   @relation(fields: [answerId], references: [id], onDelete: Cascade)
+  fileName   String
+  mimeType   String
+  sizeBytes  Int
+  storageKey String   // path/key in storage, never a public URL
+  uploadedAt DateTime @default(now())
+}
+
+model AssessmentResult {
+  id           String     @id @default(cuid())
+  assessmentId String     @unique
+  assessment   Assessment @relation(fields: [assessmentId], references: [id], onDelete: Cascade)
+  currentTier  Float
+  targetTier   Float
+  riskLevel    String     // low | medium | high | critical
+  scoresJson   String     // function + category scores (JSON) — shape defined by scoring spec
+  aiInsights   String?    // AI output (JSON) — shape defined by Data/AI team
+  source       String     @default("mock") // mock | scoring-engine | ai
+  createdAt    DateTime   @default(now())
+}
+
+model ActionItem {
+  id              String     @id @default(cuid())
+  assessmentId    String
+  assessment      Assessment @relation(fields: [assessmentId], references: [id], onDelete: Cascade)
+  title           String
+  description     String?
+  priority        String     // high | medium | low
+  responsibleTeam String?
+  estimatedCost   String?
+  phase           String?    // e.g. "0-3 months"
+  status          String     @default("todo") // todo | in_progress | done
+  progress        Int        @default(0)
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+}
+
+model Report {
+  id           String     @id @default(cuid())
+  assessmentId String
+  assessment   Assessment @relation(fields: [assessmentId], references: [id], onDelete: Cascade)
+  title        String
+  storageKey   String?
+  createdAt    DateTime   @default(now())
+}

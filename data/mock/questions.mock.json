@@ -1,0 +1,62 @@
+[
+  {
+    "id": "GV.PO-01",
+    "function": "GV",
+    "category": "GV.PO",
+    "categoryName": "Policy",
+    "text": "[MOCK] Does your organization have a documented information security policy?",
+    "description": "Placeholder question for layout and flow testing. Replace with the cyber team's question set.",
+    "evidenceRequired": false,
+    "sets": ["full", "quick"]
+  },
+  {
+    "id": "ID.AM-01",
+    "function": "ID",
+    "category": "ID.AM",
+    "categoryName": "Asset Management",
+    "text": "[MOCK] Is there an up-to-date inventory of hardware assets?",
+    "description": "Placeholder question for layout and flow testing.",
+    "evidenceRequired": false,
+    "sets": ["full", "quick"]
+  },
+  {
+    "id": "PR.AA-01",
+    "function": "PR",
+    "category": "PR.AA",
+    "categoryName": "Identity Management, Authentication & Access Control",
+    "text": "[MOCK] Are identities and credentials managed for authorized users?",
+    "description": "Placeholder question for layout and flow testing.",
+    "evidenceRequired": false,
+    "sets": ["full"]
+  },
+  {
+    "id": "DE.CM-01",
+    "function": "DE",
+    "category": "DE.CM",
+    "categoryName": "Continuous Monitoring",
+    "text": "[MOCK] Are networks monitored to find potentially adverse events?",
+    "description": "Placeholder question for layout and flow testing.",
+    "evidenceRequired": false,
+    "sets": ["full"]
+  },
+  {
+    "id": "RS.MA-01",
+    "function": "RS",
+    "category": "RS.MA",
+    "categoryName": "Incident Management",
+    "text": "[MOCK] Is there an incident response plan that is executed when an incident is declared?",
+    "description": "Placeholder question for layout and flow testing.",
+    "evidenceRequired": false,
+    "sets": ["full", "quick"]
+  },
+  {
+    "id": "RC.RP-01",
+    "function": "RC",
+    "category": "RC.RP",
+    "categoryName": "Incident Recovery Plan Execution",
+    "text": "[MOCK] Is the recovery portion of the incident response plan executed once initiated?",
+    "description": "Placeholder question for layout and flow testing.",
+    "evidenceRequired": false,
+    "sets": ["full"]
+  }
+]
