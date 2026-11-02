@@ -30,6 +30,13 @@
   --color-danger: #ef4444;
   --color-info: #38bdf8;
 
+  /* Printable report (light paper) */
+  --color-paper: #ffffff;
+  --color-paper-2: #f3f6fc;
+  --color-paper-line: #d8e0f0;
+  --color-ink: #0b1530;
+  --color-ink-muted: #4a5a80;
+
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 
   --shadow-glow: 0 0 0 1px rgb(47 107 255 / 0.35), 0 8px 30px -8px rgb(47 107 255 / 0.45);
@@ -60,4 +67,26 @@ body {
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+}
+
+/* Printable report: light colors on screen and on paper; hide the toolbar when printing */
+.report-paper {
+  color-scheme: light;
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+}
+
+@media print {
+  body {
+    background: var(--color-paper);
+  }
+  .no-print {
+    display: none !important;
+  }
+  .report-section {
+    break-inside: avoid;
+  }
+  @page {
+    margin: 14mm;
+  }
 }

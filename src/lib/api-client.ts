@@ -37,13 +37,15 @@ export async function apiFetch<T>(path: string, init?: RequestInit): Promise<T> 
 /**
  * Load data from our API with loading / error states.
  *   const { data, loading, error, reload } = useApi<DashboardData>("/api/dashboard");
+ * Pass `null` to skip loading (data stays null).
  */
-export function useApi<T>(path: string) {
+export function useApi<T>(path: string | null) {
   const [data, setData] = useState<T | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(path !== null);
   const [error, setError] = useState<string | null>(null);
 
   const load = useCallback(async () => {
+    if (path === null) return;
     setLoading(true);
     setError(null);
     try {
@@ -59,5 +61,5 @@ export function useApi<T>(path: string) {
     load();
   }, [load]);
 
-  return { data, loading, error, reload: load };
+  return { data, setData, loading, error, reload: load };
 }

@@ -1,7 +1,8 @@
 import { handle } from "@/lib/api-response";
-import { analyzeAssessment } from "@/server/ai-client";
+import { requireCompanyUser } from "@/server/auth";
+import { getLatestInsights } from "@/server/services/dashboard";
 
-// GET /api/insights — TODO(พี่ภีม): read stored AI output for the latest assessment instead of calling AI each time
+// GET /api/insights → stored AI output of the latest completed assessment, or null
 export async function GET() {
-  return handle(() => analyzeAssessment({ assessmentId: "mock-assessment-1" }));
+  return handle(async () => getLatestInsights((await requireCompanyUser()).companyId));
 }

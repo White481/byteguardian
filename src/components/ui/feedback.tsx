@@ -59,3 +59,30 @@ export function ProgressBar({ value, className }: { value: number; className?: s
     </div>
   );
 }
+
+const alertTones = {
+  error: "border-danger/40 bg-danger/10 text-danger",
+  success: "border-success/40 bg-success/10 text-success",
+  info: "border-info/40 bg-info/10 text-info",
+  warning: "border-warning/40 bg-warning/10 text-warning",
+};
+
+/** Inline message for form errors / success, announced to screen readers */
+export function Alert({
+  tone = "error",
+  children,
+  className,
+}: {
+  tone?: keyof typeof alertTones;
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <div
+      role={tone === "error" ? "alert" : "status"}
+      className={cn("rounded-lg border px-3 py-2 text-sm", alertTones[tone], className)}
+    >
+      {children}
+    </div>
+  );
+}

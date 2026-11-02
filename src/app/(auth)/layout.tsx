@@ -1,7 +1,12 @@
 import { ShieldCheck } from "lucide-react";
+import { redirect } from "next/navigation";
 import { Logo } from "@/components/brand/logo";
+import { getSessionUser } from "@/server/auth";
 
-export default function AuthLayout({ children }: { children: React.ReactNode }) {
+export default async function AuthLayout({ children }: { children: React.ReactNode }) {
+  // Already signed in → skip login/register
+  if (await getSessionUser()) redirect("/dashboard");
+
   return (
     <div className="flex min-h-screen flex-wrap">
       <div className="bg-cyber-grid flex min-h-72 flex-[1_1_480px] flex-col justify-between border-r border-line bg-sidebar p-12">

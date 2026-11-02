@@ -1,23 +1,15 @@
 import type { Metadata } from "next";
-import { PageHeader, PagePlaceholder } from "@/components/ui/page";
+import { Suspense } from "react";
+import { LoadingState } from "@/components/ui/feedback";
+import { Questionnaire } from "./questionnaire";
 
-export const metadata: Metadata = { title: "Security Controls Assessment" };
+export const metadata: Metadata = { title: "Security Assessment" };
 
-// Owner: ไวท์ — Figma frame "06 Security Assessment"
-export default function AssessmentQuestionnairePage() {
+// Figma frame "06 Security Assessment"
+export default function QuestionnairePage() {
   return (
-    <>
-      <PageHeader title="Security Controls Assessment" description="Answer each control and attach evidence if available." />
-      <PagePlaceholder
-        owner="ไวท์"
-        reference='Figma frame "06 Security Assessment"'
-        todo={[
-          "Load questions from GET /api/questions?type=…, grouped by GV / ID / PR / DE / RS / RC",
-          "Question ID, category, description, Yes / Partially / No, evidence upload, progress bar",
-          "Save each answer (PUT /api/assessments/:id/answers) and resume at Assessment.currentIndex",
-          "Required-answer validation; Submit → /assessment/processing",
-        ]}
-      />
-    </>
+    <Suspense fallback={<LoadingState label="Loading questions…" />}>
+      <Questionnaire />
+    </Suspense>
   );
 }

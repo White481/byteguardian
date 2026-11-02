@@ -2,42 +2,64 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Bell, Search } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Menu, X } from "lucide-react";
+import { useSession } from "@/components/session/session-provider";
 import { SEGMENT_LABELS } from "@/lib/nav";
+import { initials } from "@/lib/utils";
+import { AppSidebar } from "./app-sidebar";
 
-/** Search, notifications and user profile across the top of every app page */
+/** Mobile menu, company name and user profile across the top of every app page */
 export function AppTopbar() {
-  return (
-    <header className="flex h-18 items-center justify-between gap-4 border-b border-line px-6">
-      <label className="flex h-10 w-full max-w-sm items-center gap-2 rounded-lg border border-line bg-surface px-3 text-subtle">
-        <Search className="size-4" />
-        {/* TODO: wire to a search endpoint */}
-        <input
-          type="search"
-          placeholder="Search…"
-          aria-label="Search"
-          className="w-full bg-transparent text-sm text-fg placeholder:text-subtle focus:outline-none"
-        />
-      </label>
+  const user = useSession();
+  const pathname = usePathname();
+  const [menuOpen, setMenuOpen] = useState(false);
 
-      <div className="flex items-center gap-4">
-        <button
-          type="button"
-          aria-label="Notifications"
-          className="relative flex size-11 items-center justify-center rounded-lg border border-line bg-surface text-fg-soft hover:text-fg"
-        >
-          <Bell className="size-4" />
-          <span className="absolute top-2.5 right-3 size-2 rounded-full bg-danger" />
-        </button>
-        {/* TODO(ตัง): read name/initials from the session */}
-        <div className="flex items-center gap-2 text-sm">
-          <span className="flex size-9 items-center justify-center rounded-full bg-primary text-xs font-bold">
-            PS
-          </span>
-          <span className="hidden sm:inline">[User name]</span>
+  useEffect(() => setMenuOpen(false), [pathname]);
+
+  return (
+    <>
+      <header className="flex h-18 items-center justify-between gap-4 border-b border-line px-4 sm:px-6">
+        <div className="flex min-w-0 items-center gap-3">
+          <button
+            type="button"
+            className="rounded-lg p-2 text-fg-soft hover:bg-surface-2 lg:hidden"
+            aria-label="Open menu"
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen(true)}
+          >
+            <Menu className="size-5" />
+          </button>
+          <p className="truncate text-sm text-muted">
+            {user.companyName ?? "No company yet"}
+          </p>
         </div>
-      </div>
-    </header>
+
+        <Link href="/settings" className="flex items-center gap-2 text-sm hover:text-fg">
+          <span className="flex size-9 items-center justify-center rounded-full bg-primary text-xs font-bold">
+            {initials(user.fullName)}
+          </span>
+          <span className="hidden flex-col leading-tight sm:flex">
+            <span>{user.fullName}</span>
+            <span className="text-xs text-subtle capitalize">{user.role}</span>
+          </span>
+        </Link>
+      </header>
+
+      {menuOpen && (
+        <div className="fixed inset-0 z-50 flex lg:hidden" role="dialog" aria-modal="true" aria-label="Menu">
+          <AppSidebar className="h-full overflow-y-auto" onNavigate={() => setMenuOpen(false)} />
+          <button
+            type="button"
+            className="flex-1 bg-bg/70 backdrop-blur-sm"
+            aria-label="Close menu"
+            onClick={() => setMenuOpen(false)}
+          >
+            <X className="ml-auto mr-4 size-6 text-fg-soft" />
+          </button>
+        </div>
+      )}
+    </>
   );
 }
 

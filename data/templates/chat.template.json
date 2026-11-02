@@ -1,0 +1,19 @@
+{
+  "request_sent_by_web": {
+    "assessmentId": "string | null (latest completed assessment, so answers can use its results)",
+    "company": { "industry": "string | null", "companySize": "string | null" },
+    "messages": [
+      { "role": "user", "content": "string" },
+      { "role": "assistant", "content": "string" }
+    ]
+  },
+  "response_expected_from_ai": {
+    "reply": "string"
+  },
+  "questions_for_ai_team": [
+    "Do you need the full answers/scores sent with each message, or will you look them up by assessmentId?",
+    "Will replies stream? (The web currently expects one JSON response.)",
+    "Expected response time? The web side times out after 60 seconds."
+  ],
+  "notes": "Send back the URL (goes in .env as AI_CHAT_URL) and API key if any (AI_API_KEY). The web limits each user to 20 messages per minute."
+}
