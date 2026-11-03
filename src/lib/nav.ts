@@ -4,6 +4,7 @@ import {
   FileText,
   LayoutDashboard,
   ListChecks,
+  MessageSquare,
   Settings,
   Sparkles,
   Users,
@@ -22,6 +23,7 @@ export const APP_NAV: NavItem[] = [
   { label: "Assessment", href: "/assessment", icon: ClipboardCheck },
   { label: "Assessment Results", href: "/results", icon: BarChart3 },
   { label: "AI Insights", href: "/insights", icon: Sparkles },
+  { label: "AI Assistant", href: "/assistant", icon: MessageSquare },
   { label: "Action Plan", href: "/action-plan", icon: ListChecks },
   { label: "Reports", href: "/reports", icon: FileText },
   { label: "Collaborators", href: "/collaborators", icon: Users },
@@ -52,4 +54,5 @@ export const SEGMENT_LABELS: Record<string, string> = {
   reports: "Reports",
   collaborators: "Collaborators",
   settings: "Settings",
+  assistant: "AI Assistant",
 };

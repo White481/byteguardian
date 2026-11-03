@@ -59,6 +59,7 @@ model Assessment {
   createdBy    User      @relation(fields: [createdById], references: [id])
   type         String    // full | quick | custom
   framework    String    // nist-csf-2 | iso-27001 | cis
+  functions    String?   // custom only: comma-separated function codes, e.g. "GV,PR"
   status       String    @default("draft") // draft | in_progress | submitted | processing | completed | failed
   currentIndex Int       @default(0) // resume position in questionnaire
   answers      Answer[]

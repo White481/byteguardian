@@ -1,22 +1,15 @@
 import type { Metadata } from "next";
-import { PageHeader, PagePlaceholder } from "@/components/ui/page";
+import { Suspense } from "react";
+import { LoadingState } from "@/components/ui/feedback";
+import { Processing } from "./processing";
 
-export const metadata: Metadata = { title: "Analyzing your assessment" };
+export const metadata: Metadata = { title: "Processing" };
 
-// Owner: ไวท์ — Figma frame "07 Processing"
-export default function AssessmentProcessingPage() {
+// Figma frame "07 AI Processing"
+export default function ProcessingPage() {
   return (
-    <>
-      <PageHeader title="Analyzing your assessment" description="Submitted → Processing → AI analysis → Results." />
-      <PagePlaceholder
-        owner="ไวท์"
-        reference='Figma frame "07 Processing"'
-        todo={[
-          "Status steps driven by Assessment.status from the API (poll every few seconds)",
-          "Calls server-side analyzeAssessment() (src/server/ai-client.ts)",
-          "When completed → /dashboard",
-        ]}
-      />
-    </>
+    <Suspense fallback={<LoadingState />}>
+      <Processing />
+    </Suspense>
   );
 }

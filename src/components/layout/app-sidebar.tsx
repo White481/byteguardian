@@ -1,15 +1,29 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { LogOut } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
+import { useState } from "react";
+import { Loader2, LogOut } from "lucide-react";
 import { Logo } from "@/components/brand/logo";
+import { apiFetch } from "@/lib/api-client";
 import { APP_NAV } from "@/lib/nav";
 import { cn } from "@/lib/utils";
 
 /** Persistent dark sidebar for authenticated pages */
-export function AppSidebar({ className }: { className?: string }) {
+export function AppSidebar({ className, onNavigate }: { className?: string; onNavigate?: () => void }) {
   const pathname = usePathname();
+  const router = useRouter();
+  const [signingOut, setSigningOut] = useState(false);
+
+  async function signOut() {
+    setSigningOut(true);
+    try {
+      await apiFetch("/api/auth/logout", { method: "POST" });
+    } finally {
+      router.replace("/login");
+      router.refresh();
+    }
+  }
 
   return (
     <aside
@@ -27,6 +41,7 @@ export function AppSidebar({ className }: { className?: string }) {
             <Link
               key={href}
               href={href}
+              onClick={onNavigate}
               aria-current={active ? "page" : undefined}
               className={cn(
                 "flex h-11 items-center gap-3 rounded-lg px-3 text-sm transition-colors",
@@ -38,14 +53,15 @@ export function AppSidebar({ className }: { className?: string }) {
             </Link>
           );
         })}
-        {/* TODO(ตัง): call the real sign-out action when auth is ready */}
-        <Link
-          href="/"
-          className="flex h-11 items-center gap-3 rounded-lg px-3 text-sm text-fg-soft hover:bg-surface-2 hover:text-fg"
+        <button
+          type="button"
+          onClick={signOut}
+          disabled={signingOut}
+          className="flex h-11 items-center gap-3 rounded-lg px-3 text-left text-sm text-fg-soft hover:bg-surface-2 hover:text-fg disabled:opacity-60"
         >
-          <LogOut className="size-4" />
+          {signingOut ? <Loader2 className="size-4 animate-spin" /> : <LogOut className="size-4" />}
           Logout
-        </Link>
+        </button>
       </nav>
 
       <div className="mt-auto rounded-xl border border-line bg-gradient-to-br from-surface-2 to-surface-3 p-4">

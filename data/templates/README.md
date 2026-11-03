@@ -7,6 +7,7 @@ The web app is already built around these shapes, so once they arrive the dev te
 |---|---|---|
 | `questions.template.json` | The assessment question set | Security Assessment page, `GET /api/questions` |
 | `scoring.template.json` | How answers turn into tier scores and risk level | Scoring engine, Dashboard, Results |
+| `chat.template.json` | Request/response for the AI assistant chat | `src/server/ai-client.ts` (`chat()`), AI Assistant page |
 | `ai-output.template.json` | Request the web sends to the AI service, and the response it expects | `src/server/ai-client.ts`, AI Insights, Action Plan |
 
 Rules
