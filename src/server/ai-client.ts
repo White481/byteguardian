@@ -34,6 +34,12 @@ export interface ChatRequest {
   assessmentId: string | null;
   company: { industry: string | null; companySize: string | null };
   messages: ChatTurn[];
+  /** Latest results, so the AI service can answer questions about them without a database */
+  context?: {
+    summary: unknown;
+    topRisks: unknown;
+    recommendations: string[];
+  } | null;
 }
 
 /**

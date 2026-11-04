@@ -84,6 +84,10 @@ export interface DashboardData {
     overallGap: number;
     riskLevel: RiskLevel;
     maxTier: number;
+    /** Suggested pricing plan (Starter / Professional / Enterprise). Optional: old results don't have it. */
+    recommendedPlan?: string;
+    /** "rule" = data/scoring.json rule, "ml" = model from the AI service */
+    recommendedPlanSource?: "rule" | "ml";
   };
   functionScores: FunctionScore[];
   categoryScores: CategoryScore[];
@@ -105,6 +109,8 @@ export interface AiInsights {
   improvements: string[];
   /** Optional: suggested actions (see ai-output.template.json). Falls back to the mock plan. */
   actionPlan?: { title: string; priority: Priority; responsibleTeam: string; estimatedCost: string; phase: string }[];
+  /** Optional: plan suggested by the AI service's ML model. Overrides the rule-based plan. */
+  recommendedPlan?: { plan: string; confidence?: number; reason?: string };
 }
 
 export interface ActionPlanItem {

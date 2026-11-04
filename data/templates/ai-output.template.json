@@ -24,7 +24,8 @@
         "estimatedCost": "string",
         "phase": "0-3 months | 4-6 months | 7-12 months"
       }
-    ]
+    ],
+    "recommendedPlan": { "plan": "Starter | Professional | Enterprise", "confidence": 0.0, "reason": "string" }
   },
   "notes": "Send this back with real examples. Timeout on the web side is 60 seconds."
 }

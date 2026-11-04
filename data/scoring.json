@@ -37,7 +37,15 @@
       { "maxGap": 99, "level": "critical" }
     ]
   },
-  "heatmap": "Each question answered 'no' or 'partially' is one issue. impact: high if critical or targetTier >= 4, medium if the question's cisIg is 1, else low. likelihood: high if 'no', medium if 'partially'.",
+  "heatmap": "Each question answered 'no' or 'partially' is one issue. impact: high if critical or targetTier >= 4, medium if the question's cisIg is 1, else low. likelihood: high if 'no', medium if 'partially'. grid[row][col]: rows = impact high→low, cols = likelihood low→high.",
+  "issueLevel": {
+    "rule": "Level of one issue from its impact and likelihood.",
+    "high+no": "critical", "high+partially": "high",
+    "medium+no": "high", "medium+partially": "medium",
+    "low+no": "medium", "low+partially": "low"
+  },
+  "riskScore": "0–100, higher = riskier: 100 * sum((1 - points) * impactWeight) / sum(impactWeight) over answered questions; impactWeight high 3, medium 2, low 1.",
+  "topRisks": "The 4 worst issues (by level, then impact), titled with the question's categoryName.",
   "recommendedPlan": {
     "status": "NEW — not in the web app yet. Proposed extra field for the AI response.",
     "plans": ["Starter", "Professional", "Enterprise"],

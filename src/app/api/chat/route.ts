@@ -18,10 +18,19 @@ export async function POST(req: Request) {
       latestCompleted(user.companyId),
       db.company.findUniqueOrThrow({ where: { id: user.companyId } }),
     ]);
+    const scores = latest?.result ? JSON.parse(latest.result.scoresJson) : null;
+    const insights = latest?.result?.aiInsights ? JSON.parse(latest.result.aiInsights) : null;
     return chat({
       assessmentId: latest?.id ?? null,
       company: { industry: company.industry, companySize: company.companySize },
       messages,
+      context: scores
+        ? {
+            summary: scores.summary,
+            topRisks: scores.risk?.topRisks ?? [],
+            recommendations: (insights?.recommendations ?? []).map((r: { title: string }) => r.title),
+          }
+        : null,
     });
   });
 }
