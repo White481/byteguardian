@@ -8,8 +8,8 @@ Endpoints the web app calls (see src/server/ai-client.ts):
 How the answers are produced:
   - Recommendations and action plan: rules + data-ai/service/knowledge.py (always on, predictable).
   - Recommended plan: ML model trained on data/synthetic/companies.csv at start-up.
-  - Summary, key findings and chat: Claude (Anthropic API) when ANTHROPIC_API_KEY is set,
-    otherwise simple templates so the service still works offline.
+  - Summary, key findings and chat: Google Gemini, see llm.py (LLM_PROVIDER,
+    GEMINI_API_KEY …). Without a key, simple templates so the service still works offline.
 
 Run:
   pip install -r data-ai/requirements.txt
@@ -31,14 +31,13 @@ sys.path.insert(0, str(HERE.parent))  # data-ai/ → scoring.py
 
 import scoring  # noqa: E402
 from knowledge import KNOWLEDGE  # noqa: E402
+from llm import ENABLED as LLM_ENABLED, MODEL as LLM_MODEL, PROVIDER as LLM_PROVIDER, ask_llm  # noqa: E402
 from plan_model import PlanModel  # noqa: E402
 
 log = logging.getLogger("byteguardian-ai")
 logging.basicConfig(level=logging.INFO)
 
 API_KEY = os.environ.get("AI_API_KEY", "")
-ANTHROPIC_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
-ANTHROPIC_MODEL = os.environ.get("ANTHROPIC_MODEL", "claude-sonnet-5-5")
 
 app = FastAPI(title="ByteGuardian AI service", version="0.1.0")
 plan_model = PlanModel.train()
@@ -52,21 +51,6 @@ PHASE = {"high": "0-3 months", "medium": "4-6 months", "low": "7-12 months"}
 def check_auth(authorization: str | None) -> None:
     if API_KEY and authorization != f"Bearer {API_KEY}":
         raise HTTPException(status_code=401, detail="Invalid API key")
-
-
-def ask_claude(system: str, messages: list[dict], max_tokens: int = 800) -> str | None:
-    """Return Claude's text, or None if no key / any error (callers fall back to templates)."""
-    if not ANTHROPIC_KEY:
-        return None
-    try:
-        import anthropic
-
-        client = anthropic.Anthropic(api_key=ANTHROPIC_KEY)
-        res = client.messages.create(model=ANTHROPIC_MODEL, max_tokens=max_tokens, system=system, messages=messages)
-        return "".join(b.text for b in res.content if getattr(b, "type", "") == "text").strip() or None
-    except Exception as e:  # network, quota, bad model name …
-        log.warning("Claude call failed, using template instead: %s", e)
-        return None
 
 
 def parse_json(text: str | None) -> dict | None:
@@ -83,7 +67,7 @@ def parse_json(text: str | None) -> dict | None:
 
 @app.get("/health")
 def health() -> dict:
-    return {"ok": True, "llm": bool(ANTHROPIC_KEY), "model": ANTHROPIC_MODEL if ANTHROPIC_KEY else None,
+    return {"ok": True, "llm": LLM_ENABLED, "provider": LLM_PROVIDER, "model": LLM_MODEL if LLM_ENABLED else None,
             "planModelAccuracy": plan_model.test_accuracy}
 
 
@@ -129,14 +113,15 @@ def insights(payload: dict[str, Any], authorization: str | None = Header(default
                + (f', starting with: {", ".join(KNOWLEDGE[i["question"]["id"]]["title"].lower() for i in found[:2])}.'
                   if found else ". No open issues — keep controls reviewed."))
 
-    # Optional: let Claude write a clearer summary and findings from the same facts.
-    llm = parse_json(ask_claude(
+    # Optional: let the LLM write a clearer summary and findings from the same facts.
+    llm = parse_json(ask_llm(
         system=("You are a cybersecurity consultant writing for a company's management. Use only the facts given. "
                 "Reply with JSON only: {\"summary\": string (2-3 sentences), \"keyFindings\": "
                 "[{\"title\": string, \"detail\": string, \"priority\": \"high\"|\"medium\"|\"low\"}] (max 5)}."),
         messages=[{"role": "user", "content": json.dumps({
             "company": company, "scores": scores, "issues": key_findings,
             "strengths": [q["categoryName"] for q in strong]}, ensure_ascii=False)}],
+        json_mode=True,
     ))
     if llm and isinstance(llm.get("summary"), str):
         summary = llm["summary"]
@@ -163,7 +148,7 @@ def chat(payload: dict[str, Any], authorization: str | None = Header(default=Non
         raise HTTPException(status_code=422, detail="Last message must be from the user")
     context = {"company": payload.get("company"), "latestAssessment": payload.get("context")}
 
-    reply = ask_claude(
+    reply = ask_llm(
         system=("You are ByteGuardian's cybersecurity assistant for small and medium companies. "
                 "Answer briefly and practically, in the same language as the user (Thai or English). "
                 "Base answers about the company on this data and say so if something is not in it:\n"
@@ -174,7 +159,7 @@ def chat(payload: dict[str, Any], authorization: str | None = Header(default=Non
 
 
 def template_reply(question: str, ctx: dict) -> str:
-    """Offline fallback when no ANTHROPIC_API_KEY is set."""
+    """Offline fallback when no LLM is configured (or the LLM call failed)."""
     q = question.lower()
     s = ctx.get("summary") or {}
     if not s:
@@ -189,4 +174,4 @@ def template_reply(question: str, ctx: dict) -> str:
         return ("Start with: " + "; ".join(recs[:3]) + ".") if recs else "No open recommendations — keep your controls reviewed."
     return (f'Your current tier is {s.get("currentTier")} ({s.get("currentTierLabel")}) and the target is '
             f'{s.get("targetTier")}. Ask me about your risks, what to fix first, or the suggested plan. '
-            "(Offline mode: set ANTHROPIC_API_KEY for full answers.)")
+            "(Offline mode: set GEMINI_API_KEY for full answers.)")

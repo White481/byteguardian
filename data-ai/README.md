@@ -30,6 +30,7 @@ both give identical results on all 500 synthetic companies.
 | `data-ai/train_baseline.py` | Baseline model that predicts the plan (Starter / Professional / Enterprise). |
 | `data-ai/service/app.py` | AI service (FastAPI): `/insights`, `/chat`, `/health`. |
 | `data-ai/service/knowledge.py` | Recommendation text, team, cost band for each question (draft). |
+| `data-ai/service/llm.py` | Calls Google Gemini; settings from `.env`. No key = templates only. |
 | `data-ai/service/plan_model.py` | Plan model, trained on the synthetic CSV when the service starts. |
 
 ## Run
@@ -49,9 +50,10 @@ The labels have 8% simulated noise, so ≈ 0.96 is the ceiling on the test split
 # terminal 1 — AI service
 pip install -r data-ai/requirements.txt
 uvicorn app:app --app-dir data-ai/service --port 8000
-# optional: real AI text for summary / findings / chat
-#   Windows PowerShell:  $env:ANTHROPIC_API_KEY="sk-ant-..."   (before uvicorn)
-#   macOS / Linux:       export ANTHROPIC_API_KEY=sk-ant-...
+# optional: real AI text for summary / findings / chat — put these in .env (the service reads it)
+#   LLM_PROVIDER="gemini"
+#   GEMINI_API_KEY="..."            ← from https://aistudio.google.com/apikey
+#   GEMINI_MODEL="gemini-3.5-flash-lite"
 
 # terminal 2 — web app, with these lines in .env
 #   AI_API_URL="http://localhost:8000/insights"
@@ -59,9 +61,9 @@ uvicorn app:app --app-dir data-ai/service --port 8000
 npm run dev
 ```
 
-Without `ANTHROPIC_API_KEY` the service still works: recommendations, action plan and plan come from
-rules + the ML model, and summary / chat use simple templates. Check http://localhost:8000/health.
-The model name can be changed with `ANTHROPIC_MODEL` (default `claude-sonnet-5-5`).
+Without an LLM key the service still works and uses no tokens: recommendations, action plan and plan
+come from rules + the ML model, and summary / chat use simple templates. If the LLM call fails
+(no internet, free quota used up), it falls back to the templates. Check http://localhost:8000/health.
 
 Old assessments keep their old (mock) results. Run a **new** assessment to see real scores.
 
