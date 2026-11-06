@@ -168,13 +168,19 @@ export async function processAssessment(companyId: string, id: string) {
 
   try {
     const company = await db.company.findUniqueOrThrow({ where: { id: companyId } });
-    const { scores, source } = scoreAssessment();
+    const { scores, source } = scoreAssessment({
+      answers: a.answers.map((x) => ({ questionId: x.questionId, value: x.value })),
+      company: { industry: company.industry, companySize: company.companySize },
+    });
     const insights = await analyzeAssessment({
       assessmentId: id,
       framework: a.framework,
       company: {
         industry: company.industry,
         companySize: company.companySize,
+        employeeCount: company.employeeCount,
+        annualRevenue: company.annualRevenue,
+        country: company.country,
         itInfrastructure: company.itInfrastructure,
         cloudEnvironment: company.cloudEnvironment,
       },
@@ -183,8 +189,15 @@ export async function processAssessment(companyId: string, id: string) {
         currentTier: scores.summary.currentTier,
         targetTier: scores.summary.targetTier,
         functions: scores.functionScores.map(({ function: f, current, target }) => ({ function: f, current, target })),
+        overallGap: scores.summary.overallGap,
+        riskLevel: scores.summary.riskLevel,
       },
     });
+    // The AI service may suggest a plan with its ML model; otherwise keep the rule-based one.
+    if (insights.recommendedPlan?.plan) {
+      scores.summary.recommendedPlan = insights.recommendedPlan.plan;
+      scores.summary.recommendedPlanSource = "ml";
+    }
     const plan = insights.actionPlan?.length ? insights.actionPlan : getMockActionPlan();
     const resultSource = source === "mock" || insights.isMock ? "mock" : "ai";
     const result = {
