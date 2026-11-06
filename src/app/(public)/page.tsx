@@ -14,7 +14,7 @@ import { Card, CardBody } from "@/components/ui/card";
 import { ContactForm } from "./contact-form";
 
 // Owner: ตัง — Landing page, Figma frame "01 Landing Page".
-// Pricing, news and partners are placeholders until the business team sends real content.
+// News is curated by hand with links to its sources. Partners are placeholders until the business team sends real content.
 
 const FEATURES = [
   { icon: ClipboardCheck, title: "Guided assessment", text: "Answer structured questions mapped to NIST CSF 2.0, with evidence uploads and autosave." },
@@ -38,7 +38,69 @@ const SOLUTIONS = [
   { title: "Regulated industries", text: "Prepare for audits with documented evidence and reports." },
 ];
 
-const PLANS = ["Starter", "Professional", "Enterprise"];
+const PLANS = [
+  {
+    name: "Essential Prism",
+    level: "Light requirements",
+    monthly: "฿25,000",
+    annual: "฿300,000/year",
+    setup: "฿50,000",
+    features: ["General risk assessment", "System setup and onboarding in 1-2 weeks"],
+    cta: { label: "Get started", href: "/register" },
+  },
+  {
+    name: "Business Prism",
+    level: "Standard requirements",
+    monthly: "฿60,000",
+    annual: "฿720,000/year",
+    setup: "฿150,000",
+    features: ["Security policy development", "Staff training", "Delivered in 3-4 weeks"],
+    cta: { label: "Get started", href: "/register" },
+    featured: true,
+  },
+  {
+    name: "Enterprise Prism",
+    level: "High, complex requirements",
+    monthly: "฿120,000",
+    annual: "฿1,440,000/year",
+    setup: "฿350,000",
+    features: ["New infrastructure setup", "Threat response drills", "Delivered in 1-2 months"],
+    cta: { label: "Get started", href: "/register" },
+  },
+  {
+    name: "Ultimate / Tailored Prism",
+    level: "Complex, custom requirements",
+    monthly: "฿250,000-450,000",
+    annual: "From ฿3,000,000/year",
+    setup: "From ฿800,000, or by on-site evaluation",
+    features: ["In-depth system audit", "Implementation to ISO/NIST standards", "Ongoing delivery over 3+ months"],
+    cta: { label: "Contact us", href: "#contact" },
+  },
+];
+
+const NEWS = [
+  {
+    date: "October 5, 2026",
+    title: "Citrix NetScaler flaw under active exploitation",
+    text: "CVE-2026-88779 (CVSS 8.7) affects customer-managed NetScaler ADC and Gateway deployments configured for SAML. Sophos advises applying the latest Citrix updates as soon as possible.",
+    source: "Sophos",
+    href: "https://www.sophos.com/en-us/blog/citrix-netscaler-vulnerability-cve-2026-88779-in-active-exploitation",
+  },
+  {
+    date: "March 23, 2026",
+    title: "NIST releases two new CSF 2.0 quick-start guides",
+    text: "A final guide covers cybersecurity, enterprise risk and workforce management, alongside a public draft on informative references.",
+    source: "NIST",
+    href: "https://content.govdelivery.com/accounts/USNIST/bulletins/40ebddc",
+  },
+  {
+    date: "August 22, 2024",
+    title: "Thailand's first administrative fine under the PDPA",
+    text: "A major private company was fined THB 7 million over a missing data protection officer, inadequate security and delayed breach notification.",
+    source: "Tilleke & Gibbins",
+    href: "https://www.tilleke.com/insights/landmark-fine-imposed-under-thailands-personal-data-protection-act/3/",
+  },
+];
 
 export default function LandingPage() {
   return (
@@ -108,36 +170,43 @@ export default function LandingPage() {
         </div>
       </Section>
 
-      <Section id="pricing" eyebrow="Pricing" title="Plans for every stage" badge={<MockBadge label="Placeholder pricing" />}>
-        <div className="grid gap-4 md:grid-cols-3">
-          {PLANS.map((p, i) => (
-            <Card key={p} className={i === 1 ? "border-primary shadow-glow" : undefined}>
+      <Section id="pricing" eyebrow="Pricing" title="Plans for every stage">
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          {PLANS.map((p) => (
+            <Card key={p.name} className={p.featured ? "border-primary shadow-glow" : undefined}>
               <CardBody className="flex h-full flex-col">
-                <h3 className="text-lg font-semibold">{p}</h3>
-                <p className="mt-2 text-3xl font-extrabold">[Price]</p>
-                <p className="text-sm text-subtle">[Billing period]</p>
+                <h3 className="text-lg font-semibold">{p.name}</h3>
+                <p className="text-sm text-subtle">{p.level}</p>
+                <p className="mt-3 text-2xl font-extrabold">{p.monthly}</p>
+                <p className="text-sm text-subtle">per month ({p.annual})</p>
+                <p className="mt-2 text-sm text-muted">One-time setup fee: {p.setup}</p>
                 <ul className="mt-4 flex-1 list-inside list-disc space-y-1 text-sm text-muted">
-                  <li>[Feature from business team]</li>
-                  <li>[Feature from business team]</li>
-                  <li>[Feature from business team]</li>
+                  {p.features.map((f) => (
+                    <li key={f}>{f}</li>
+                  ))}
                 </ul>
-                <ButtonLink href="/register" variant={i === 1 ? "primary" : "outline"} className="mt-6">
-                  Get started
+                <ButtonLink href={p.cta.href} variant={p.featured ? "primary" : "outline"} className="mt-6">
+                  {p.cta.label}
                 </ButtonLink>
               </CardBody>
             </Card>
           ))}
         </div>
+        <p className="mt-4 text-sm text-subtle">Monthly fees require a minimum 1-year contract.</p>
       </Section>
 
-      <Section id="news" eyebrow="News" title="Cybersecurity news" badge={<MockBadge label="Placeholder" />}>
+      <Section id="news" eyebrow="News" title="Cybersecurity news">
         <div className="grid gap-4 md:grid-cols-3">
-          {[1, 2, 3].map((n) => (
-            <Card key={n}>
-              <CardBody>
+          {NEWS.map((n) => (
+            <Card key={n.href}>
+              <CardBody className="flex h-full flex-col">
                 <Newspaper className="size-6 text-subtle" />
-                <h3 className="mt-3 font-semibold">[News headline]</h3>
-                <p className="mt-1 text-sm text-muted">[Short summary — content pending]</p>
+                <p className="mt-3 text-sm text-subtle">{n.date}</p>
+                <h3 className="mt-1 font-semibold">{n.title}</h3>
+                <p className="mt-1 flex-1 text-sm text-muted">{n.text}</p>
+                <a href={n.href} target="_blank" rel="noopener noreferrer" className="mt-4 text-sm font-medium text-primary hover:underline">
+                  Read more at {n.source}
+                </a>
               </CardBody>
             </Card>
           ))}

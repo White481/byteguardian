@@ -5,7 +5,7 @@ AI-powered **Cybersecurity Maturity Assessment** platform — evaluate maturity,
 - Design (source of truth): Figma file **"ByteGuardian — UI Flow"** (12 screens, clickable prototype)
 - Stack: Next.js 15 (App Router) · TypeScript · Tailwind CSS v4 · Recharts · Prisma · SQLite (dev) / PostgreSQL
 
-> ⚠️ Pricing, news and partners are still **placeholders**. Questions, scoring rules and AI recommendations are **drafts** from the Data/AI team, waiting for review. Mock and draft data are labelled in the UI.
+> ⚠️ Partners are still **placeholders**. Questions, scoring rules and AI recommendations are **drafts** from the Data/AI team, waiting for review. Mock and draft data are labelled in the UI.
 
 ## Run it
 
