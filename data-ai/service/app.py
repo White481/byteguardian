@@ -17,6 +17,7 @@ Run:
 """
 from __future__ import annotations
 
+import hmac
 import json
 import logging
 import os
@@ -38,6 +39,11 @@ log = logging.getLogger("byteguardian-ai")
 logging.basicConfig(level=logging.INFO)
 
 API_KEY = os.environ.get("AI_API_KEY", "")
+# On a public host the service must not be open to anyone (each call can spend Gemini quota).
+# Railway sets RAILWAY_ENVIRONMENT; set REQUIRE_AI_API_KEY=1 on any other host.
+REQUIRE_KEY = bool(os.environ.get("RAILWAY_ENVIRONMENT") or os.environ.get("REQUIRE_AI_API_KEY"))
+if REQUIRE_KEY and not API_KEY:
+    log.warning("AI_API_KEY is not set: /insights and /chat will refuse every request until it is.")
 
 app = FastAPI(title="ByteGuardian AI service", version="0.1.0")
 plan_model = PlanModel.train()
@@ -49,7 +55,11 @@ PHASE = {"high": "0-3 months", "medium": "4-6 months", "low": "7-12 months"}
 # ---------------------------------------------------------------- helpers
 
 def check_auth(authorization: str | None) -> None:
-    if API_KEY and authorization != f"Bearer {API_KEY}":
+    if not API_KEY:
+        if REQUIRE_KEY:
+            raise HTTPException(status_code=503, detail="AI_API_KEY is not configured on this server")
+        return  # local development: no key needed
+    if not hmac.compare_digest(authorization or "", f"Bearer {API_KEY}"):
         raise HTTPException(status_code=401, detail="Invalid API key")
 
 

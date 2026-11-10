@@ -2,7 +2,6 @@ import {
   BarChart3,
   CheckCircle2,
   ClipboardCheck,
-  Clock,
   ExternalLink,
   FileText,
   ListChecks,
@@ -11,7 +10,7 @@ import {
   Sparkles,
   Users,
 } from "lucide-react";
-import { Badge, MockBadge } from "@/components/ui/badge";
+import { Badge } from "@/components/ui/badge";
 import { ButtonLink } from "@/components/ui/button";
 import { Card, CardBody } from "@/components/ui/card";
 import { formatDate } from "@/lib/utils";
@@ -21,7 +20,7 @@ import { ContactForm } from "./contact-form";
 
 // Owner: ตัง — Landing page, Figma frame "01 Landing Page".
 // Pricing and news come from data/content/*.json (edit those, not this file).
-// Partners are placeholders until the business team sends real logos.
+// Partners section is hidden until the business team sends real logos.
 
 const FEATURES = [
   { icon: ClipboardCheck, title: "Guided assessment", text: "Answer structured questions mapped to NIST CSF 2.0, with evidence uploads and autosave." },
@@ -116,41 +115,30 @@ export default function LandingPage() {
         </div>
       </Section>
 
-      <Section id="pricing" eyebrow="Pricing" title="Prism plans — priced by your requirements">
-        <p className="-mt-6 mb-8 max-w-3xl text-muted">
-          Each tier reflects the depth of your requirements and the expert hours needed to deliver them. All prices in
-          Thai baht. {pricing.contractNote}
-        </p>
+      <Section id="pricing" eyebrow="Pricing" title="Free to start, software-priced after">
+        <p className="-mt-6 mb-8 max-w-3xl text-muted">All prices in Thai baht. {pricing.contractNote}</p>
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
           {pricing.plans.map((p) => (
-            <Card key={p.id} className={p.tier === 4 ? "border-primary shadow-glow" : undefined}>
+            <Card key={p.id} className={p.highlight ? "border-primary shadow-glow" : undefined}>
               <CardBody className="flex h-full flex-col">
-                <Badge tone={p.tier === 4 ? "primary" : "neutral"} className="w-fit">
-                  Tier {p.tier}
-                </Badge>
+                {p.highlight && (
+                  <Badge tone="primary" className="w-fit">
+                    Most popular
+                  </Badge>
+                )}
                 <h3 className="mt-3 text-lg font-semibold">{p.name}</h3>
-                <p className="text-sm text-accent">{p.requirementLevel}</p>
+                <p className="text-sm text-accent">{p.audience}</p>
 
                 <div className="mt-4">
-                  <p className="text-xs text-subtle">Monthly fee</p>
                   <p className="text-2xl font-extrabold">
-                    ฿{p.monthlyFee}
-                    <span className="text-sm font-medium text-subtle"> /mo</span>
+                    {p.price === "Quoted" ? p.price : `฿${p.price}`}
+                    {p.period && <span className="text-sm font-medium text-subtle"> {p.period}</span>}
                   </p>
-                  <p className="text-xs text-subtle">฿{p.annualFee} per year</p>
-                </div>
-                <div className="mt-3 rounded-lg bg-surface-2 px-3 py-2">
-                  <p className="text-xs text-subtle">One-time setup fee</p>
-                  <p className="font-semibold">฿{p.setupFee}</p>
-                  {"setupFeeNote" in p && <p className="text-xs text-subtle">{p.setupFeeNote}</p>}
+                  <p className="text-xs text-subtle">{p.priceNote}</p>
                 </div>
 
                 <ul className="mt-4 flex flex-1 flex-col gap-2 text-sm text-fg-soft">
-                  <li className="flex gap-2">
-                    <Clock className="mt-0.5 size-4 shrink-0 text-subtle" />
-                    {p.timeline}
-                  </li>
-                  {p.scope.map((item) => (
+                  {p.features.map((item) => (
                     <li key={item} className="flex gap-2">
                       <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-success" />
                       {item}
@@ -160,10 +148,10 @@ export default function LandingPage() {
 
                 <ButtonLink
                   href={p.cta === "contact" ? "#contact" : "/register"}
-                  variant={p.tier === 4 ? "primary" : "outline"}
+                  variant={p.highlight ? "primary" : "outline"}
                   className="mt-6"
                 >
-                  {p.cta === "contact" ? "Contact us" : "Get started"}
+                  {p.cta === "contact" ? "Contact us" : p.price === "0" ? "Start free" : "Get started"}
                 </ButtonLink>
               </CardBody>
             </Card>
@@ -205,18 +193,7 @@ export default function LandingPage() {
         </div>
       </Section>
 
-      <Section id="partners" eyebrow="Partners" title="Trusted partners" badge={<MockBadge label="Placeholder" />}>
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-          {[1, 2, 3, 4].map((n) => (
-            <div
-              key={n}
-              className="flex h-20 items-center justify-center rounded-xl border border-dashed border-line text-sm text-subtle"
-            >
-              [Partner logo]
-            </div>
-          ))}
-        </div>
-      </Section>
+      {/* Partners section removed until we have real partner logos (placeholders looked unfinished in demos). */}
 
       <Section id="contact" eyebrow="Contact" title="Talk to us">
         <div className="grid gap-8 md:grid-cols-2">

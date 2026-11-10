@@ -1,73 +1,74 @@
 {
   "currency": "THB",
-  "contractNote": "Monthly fees require a minimum 1-year contract. The setup fee is paid once.",
+  "contractNote": "No setup fee. Paid plans are billed yearly. Expert work is optional and delivered by partner firms.",
   "plans": [
     {
-      "id": "essential",
-      "name": "Essential Prism",
-      "tier": 1,
-      "requirementLevel": "Light requirements",
-      "timeline": "Setup & onboarding in 1–2 weeks",
-      "scope": ["General cybersecurity risk assessment"],
-      "setupFee": "50,000",
-      "monthlyFee": "25,000",
-      "annualFee": "300,000",
+      "id": "free",
+      "name": "Free",
+      "highlight": false,
+      "price": "0",
+      "period": "",
+      "priceNote": "Free forever",
+      "audience": "See where you stand",
+      "features": ["Quick Assessment (10 questions)", "Maturity score", "Top 3 gaps"],
+      "cta": "register"
+    },
+    {
+      "id": "starter",
+      "name": "Starter",
+      "highlight": false,
+      "price": "2,500",
+      "period": "/mo",
+      "priceNote": "฿30,000 per year · up to 5 users",
+      "audience": "Know and fix your gaps",
+      "features": [
+        "Full NIST CSF 2.0 assessment",
+        "Dashboard, AI insights and action plan",
+        "Executive PDF report",
+        "Re-assess every quarter"
+      ],
       "cta": "register"
     },
     {
       "id": "business",
-      "name": "Business Prism",
-      "tier": 2,
-      "requirementLevel": "Standard requirements",
-      "timeline": "Delivered in 3–4 weeks",
-      "scope": ["Security policy development", "Staff security training"],
-      "setupFee": "150,000",
-      "monthlyFee": "60,000",
-      "annualFee": "720,000",
-      "cta": "register"
-    },
-    {
-      "id": "enterprise",
-      "name": "Enterprise Prism",
-      "tier": 3,
-      "requirementLevel": "High & complex requirements",
-      "timeline": "Delivered in 1–2 months",
-      "scope": ["New security infrastructure setup", "Threat response drills"],
-      "setupFee": "350,000",
-      "monthlyFee": "120,000",
-      "annualFee": "1,440,000",
-      "cta": "register"
-    },
-    {
-      "id": "ultimate",
-      "name": "Ultimate / Tailored Prism",
-      "tier": 4,
-      "requirementLevel": "Complex & custom requirements",
-      "timeline": "3+ months, ongoing",
-      "scope": [
-        "In-depth system audit",
-        "Implementation to international standards (ISO / NIST)",
-        "24/7 incident response within 15–30 minutes"
+      "name": "Business",
+      "highlight": true,
+      "price": "6,500",
+      "period": "/mo",
+      "priceNote": "฿78,000 per year · up to 20 users",
+      "audience": "Prove progress to management and auditors",
+      "features": [
+        "Everything in Starter",
+        "Unlimited re-assessments and history",
+        "Evidence vault",
+        "1 expert review per year by a partner firm"
       ],
-      "setupFee": "800,000+",
-      "setupFeeNote": "or based on on-site assessment",
-      "monthlyFee": "250,000–450,000",
-      "annualFee": "3,000,000+",
+      "cta": "register"
+    },
+    {
+      "id": "partner-services",
+      "name": "Partner services",
+      "highlight": false,
+      "price": "Quoted",
+      "period": "",
+      "priceNote": "Delivered by partner security firms",
+      "audience": "When you need hands-on experts",
+      "features": ["Expert-verified assessment", "Penetration testing", "ISO 27001 implementation"],
       "cta": "contact"
     }
   ],
   "valuePoints": [
     {
-      "title": "Setup fee = expert architecture work",
-      "text": "The setup fee covers Cyber Security Architect hours: working with your leadership, reviewing your entire IT structure and designing a roadmap tailored 100% to your organization. More requirements and longer timelines mean more expert time."
+      "title": "Software price, not consultant price",
+      "text": "Business costs about a third of the entry price of compliance platforms such as Secureframe (about US$7,500 a year)."
     },
     {
       "title": "Costs far less than a breach",
-      "text": "Recovery costs and legal penalties (such as under PDPA) after a cyberattack can reach tens or hundreds of millions of baht. A monthly fee for a team that monitors your posture and keeps your staff's skills current is a sound investment."
+      "text": "Recovery costs and penalties after an attack can reach millions of baht; PDPA fines alone go up to ฿5 million."
     },
     {
-      "title": "Backed by contract and SLA",
-      "text": "Every plan is a contract with a guaranteed response time. On Ultimate Prism, our team responds to an attack within 15–30 minutes, 24 hours a day."
+      "title": "Experts when you need them",
+      "text": "The software tells you what to fix first. When you need a pentest, an audit or ISO 27001 work, we connect you with a partner firm."
     }
   ]
 }

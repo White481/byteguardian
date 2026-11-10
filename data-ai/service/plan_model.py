@@ -1,4 +1,6 @@
-"""Recommended-plan model (Starter / Professional / Enterprise).
+"""Recommended-plan model (internal labels Starter / Professional / Enterprise = CIS IG1/2/3).
+
+Predictions are returned as the plan names we sell, via scoring.json "displayNames".
 
 Trained at service start-up from data/synthetic/companies.csv (takes about a second),
 so no model file has to be committed. Uses only fields the web app sends:
@@ -50,4 +52,6 @@ class PlanModel:
         X = to_frame([{**{c: company.get(c) for c in PROFILE}, **answers}])
         proba = self.pipe.predict_proba(X)[0]
         best = int(proba.argmax())
-        return {"plan": str(self.pipe.classes_[best]), "confidence": round(float(proba[best]), 2)}
+        internal = str(self.pipe.classes_[best])
+        names = scoring.RULES["recommendedPlan"].get("displayNames", {})
+        return {"plan": names.get(internal, internal), "confidence": round(float(proba[best]), 2)}

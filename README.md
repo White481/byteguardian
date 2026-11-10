@@ -48,6 +48,27 @@ Useful: `npm run lint` · `npm run typecheck` · `npm run db:studio` (browse the
 
 Switch to PostgreSQL: set `provider = "postgresql"` in `prisma/schema.prisma` and a Postgres `DATABASE_URL` in `.env`, then `npm run db:push`.
 
+## Deploy (Railway)
+
+Two services from this repo, plus one volume.
+
+**1. Web app** (uses `railway.json`)
+- Add a **Volume** mounted at `/data` (SQLite and evidence files live there; without it every redeploy wipes all accounts).
+- Variables:
+  - `DATABASE_URL="file:/data/dev.db"`
+  - `UPLOAD_DIR="/data/uploads"`
+  - `AI_API_URL="https://<ai-service>.up.railway.app/insights"`
+  - `AI_CHAT_URL="https://<ai-service>.up.railway.app/chat"`
+  - `AI_API_KEY="<long random string>"` (same value as the AI service)
+
+**2. AI service** (Python, `data-ai/Dockerfile`)
+- New service from the same repo, variable `RAILWAY_DOCKERFILE_PATH=data-ai/Dockerfile`.
+- Variables: `AI_API_KEY` (same as the web app), `LLM_PROVIDER="gemini"`, `GEMINI_API_KEY`, `GEMINI_MODEL`.
+- On Railway the service refuses `/insights` and `/chat` until `AI_API_KEY` is set, so nobody else can spend the Gemini quota.
+- Check `https://<ai-service>.up.railway.app/health`.
+
+If the dashboard shows a **Mock** badge, `AI_API_URL` / `AI_CHAT_URL` are empty or wrong on the web service.
+
 ## Project structure
 
 ```

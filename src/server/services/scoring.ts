@@ -85,7 +85,13 @@ export function recommendedPlanFor(
     (isHighRisk(industry) ? 1 : 0) +
     (p.riskPoints as Record<RiskLevel, number>)[riskLevel] +
     Math.min(1, 0.5 * Math.max(0, servicesRequested - 1));
-  return p.thresholds.find((t) => need <= t.maxNeedScore)!.plan;
+  const internal = p.thresholds.find((t) => need <= t.maxNeedScore)!.plan;
+  return planDisplayName(internal);
+}
+
+/** Internal plan label (CIS IG1/2/3) → the plan name we sell, from scoring.json "displayNames". */
+export function planDisplayName(internal: string): string {
+  return (rules.recommendedPlan.displayNames as Record<string, string>)[internal] ?? internal;
 }
 
 export function scoreAssessment({ answers, company }: ScoringInput): {

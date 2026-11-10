@@ -65,8 +65,8 @@ export function AppSidebar({ className, onNavigate }: { className?: string; onNa
       </nav>
 
       <div className="mt-auto rounded-xl border border-line bg-gradient-to-br from-surface-2 to-surface-3 p-4">
-        <p className="text-sm font-bold text-fg">Upgrade to Enterprise</p>
-        <p className="mt-1 text-xs text-muted">Unlock advanced features.</p>
+        <p className="text-sm font-bold text-fg">Upgrade to Business</p>
+        <p className="mt-1 text-xs text-muted">Unlimited re-assessments and an expert review.</p>
         <Link href="/#pricing" className="mt-3 inline-block text-sm font-semibold text-accent">
           View plans →
         </Link>

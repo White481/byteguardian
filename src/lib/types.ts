@@ -84,7 +84,7 @@ export interface DashboardData {
     overallGap: number;
     riskLevel: RiskLevel;
     maxTier: number;
-    /** Suggested pricing plan (Starter / Professional / Enterprise). Optional: old results don't have it. */
+    /** Suggested plan we sell (Starter / Business / Business + Partner services). Optional: old results don't have it. */
     recommendedPlan?: string;
     /** "rule" = data/scoring.json rule, "ml" = model from the AI service */
     recommendedPlanSource?: "rule" | "ml";

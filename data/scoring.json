@@ -59,6 +59,12 @@
       { "maxNeedScore": 3.5, "plan": "Professional" },
       { "maxNeedScore": 99, "plan": "Enterprise" }
     ],
-    "cisMapping": "Starter ≈ CIS Implementation Group 1, Professional ≈ IG2, Enterprise ≈ IG3"
+    "cisMapping": "Starter ≈ CIS Implementation Group 1, Professional ≈ IG2, Enterprise ≈ IG3",
+    "displayNames": {
+      "_note": "Internal labels (= CIS IG1/IG2/IG3, used by the synthetic dataset and ML model) mapped to the plans we sell (data/content/pricing.json).",
+      "Starter": "Starter",
+      "Professional": "Business",
+      "Enterprise": "Business + Partner services"
+    }
   }
 }
