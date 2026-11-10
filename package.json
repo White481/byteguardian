@@ -5,19 +5,19 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "prisma db push --skip-generate && next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
     "db:push": "prisma db push",
     "db:studio": "prisma studio",
-    "postinstall": "prisma generate",
-    "start:prod": "prisma db push --skip-generate && next start"
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@prisma/client": "^6.10.0",
     "clsx": "^2.1.1",
     "lucide-react": "^0.468.0",
     "next": "^15.5.0",
+    "prisma": "^6.10.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "recharts": "^2.15.0",
@@ -33,7 +33,6 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "^15.5.0",
-    "prisma": "^6.10.0",
     "tailwindcss": "^4.1.0",
     "typescript": "^5"
   },
