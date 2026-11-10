@@ -1,0 +1,23 @@
+[
+  {
+    "title": "NIST releases Cybersecurity Framework (CSF) 2.0",
+    "date": "2024-02-26",
+    "source": "NIST",
+    "url": "https://www.nist.gov/cyberframework",
+    "summary": "The first major update since 2014 adds a sixth function, Govern, and broadens the framework to organizations of every size and sector — the basis of ByteGuardian's assessment."
+  },
+  {
+    "title": "ISO/IEC 27001:2022 transition period has ended",
+    "date": "2025-10-31",
+    "source": "ISO",
+    "url": "https://www.iso.org/standard/27001",
+    "summary": "Certificates issued against ISO/IEC 27001:2013 expired at the end of the three-year transition. Certified organizations must now meet the 2022 edition and its updated Annex A controls."
+  },
+  {
+    "title": "Thailand's PDPA: personal data protection is in full force",
+    "date": "2022-06-01",
+    "source": "PDPC Thailand",
+    "url": "https://www.pdpc.or.th",
+    "summary": "The Personal Data Protection Act requires organizations to secure personal data and report breaches, with administrative fines of up to 5 million baht per violation, plus criminal and civil liability."
+  }
+]

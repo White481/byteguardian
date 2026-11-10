@@ -1,0 +1,73 @@
+{
+  "currency": "THB",
+  "contractNote": "Monthly fees require a minimum 1-year contract. The setup fee is paid once.",
+  "plans": [
+    {
+      "id": "essential",
+      "name": "Essential Prism",
+      "tier": 1,
+      "requirementLevel": "Light requirements",
+      "timeline": "Setup & onboarding in 1–2 weeks",
+      "scope": ["General cybersecurity risk assessment"],
+      "setupFee": "50,000",
+      "monthlyFee": "25,000",
+      "annualFee": "300,000",
+      "cta": "register"
+    },
+    {
+      "id": "business",
+      "name": "Business Prism",
+      "tier": 2,
+      "requirementLevel": "Standard requirements",
+      "timeline": "Delivered in 3–4 weeks",
+      "scope": ["Security policy development", "Staff security training"],
+      "setupFee": "150,000",
+      "monthlyFee": "60,000",
+      "annualFee": "720,000",
+      "cta": "register"
+    },
+    {
+      "id": "enterprise",
+      "name": "Enterprise Prism",
+      "tier": 3,
+      "requirementLevel": "High & complex requirements",
+      "timeline": "Delivered in 1–2 months",
+      "scope": ["New security infrastructure setup", "Threat response drills"],
+      "setupFee": "350,000",
+      "monthlyFee": "120,000",
+      "annualFee": "1,440,000",
+      "cta": "register"
+    },
+    {
+      "id": "ultimate",
+      "name": "Ultimate / Tailored Prism",
+      "tier": 4,
+      "requirementLevel": "Complex & custom requirements",
+      "timeline": "3+ months, ongoing",
+      "scope": [
+        "In-depth system audit",
+        "Implementation to international standards (ISO / NIST)",
+        "24/7 incident response within 15–30 minutes"
+      ],
+      "setupFee": "800,000+",
+      "setupFeeNote": "or based on on-site assessment",
+      "monthlyFee": "250,000–450,000",
+      "annualFee": "3,000,000+",
+      "cta": "contact"
+    }
+  ],
+  "valuePoints": [
+    {
+      "title": "Setup fee = expert architecture work",
+      "text": "The setup fee covers Cyber Security Architect hours: working with your leadership, reviewing your entire IT structure and designing a roadmap tailored 100% to your organization. More requirements and longer timelines mean more expert time."
+    },
+    {
+      "title": "Costs far less than a breach",
+      "text": "Recovery costs and legal penalties (such as under PDPA) after a cyberattack can reach tens or hundreds of millions of baht. A monthly fee for a team that monitors your posture and keeps your staff's skills current is a sound investment."
+    },
+    {
+      "title": "Backed by contract and SLA",
+      "text": "Every plan is a contract with a guaranteed response time. On Ultimate Prism, our team responds to an attack within 15–30 minutes, 24 hours a day."
+    }
+  ]
+}

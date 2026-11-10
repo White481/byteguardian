@@ -236,7 +236,8 @@ const ALLOWED_MIME = new Set([
   "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
   "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
 ]);
-const UPLOAD_ROOT = path.join(process.cwd(), "uploads");
+// UPLOAD_DIR points at a persistent volume in production (e.g. /data/uploads on Railway)
+const UPLOAD_ROOT = process.env.UPLOAD_DIR || path.join(process.cwd(), "uploads");
 
 export async function addEvidence(companyId: string, id: string, questionId: string, file: File) {
   const a = await findOwned(companyId, id);
