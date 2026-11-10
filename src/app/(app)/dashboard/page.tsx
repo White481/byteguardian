@@ -5,13 +5,13 @@
 //   useApi() → LoadingState / ErrorState → components fed from the API (no hardcoded numbers).
 
 import Link from "next/link";
-import { AlertTriangle, CheckCircle2, ShieldCheck, Sparkles, Target } from "lucide-react";
+import { AlertTriangle, CheckCircle2, Package, ShieldCheck, Sparkles, Target } from "lucide-react";
 import { CategoryBars } from "@/components/charts/category-bars";
 import { FunctionBars } from "@/components/charts/function-bars";
 import { MaturityRadar } from "@/components/charts/maturity-radar";
 import { RiskHeatmap } from "@/components/charts/risk-heatmap";
 import { NoAssessment } from "@/components/dashboard/no-assessment";
-import { MockBadge, PriorityBadge, RiskBadge } from "@/components/ui/badge";
+import { Badge, MockBadge, PriorityBadge, RiskBadge } from "@/components/ui/badge";
 import { ButtonLink } from "@/components/ui/button";
 import { Card, CardBody, CardHeader } from "@/components/ui/card";
 import { ErrorState, LoadingState } from "@/components/ui/feedback";
@@ -82,6 +82,32 @@ export default function DashboardPage() {
           footer={<RiskBadge level={summary.riskLevel} />}
         />
       </div>
+
+      {summary.recommendedPlan && (
+        <Card className="mt-4">
+          <CardBody className="flex flex-wrap items-center justify-between gap-4">
+            <div className="flex items-center gap-4">
+              <div className="rounded-xl bg-primary/20 p-3 text-accent">
+                <Package className="size-6" />
+              </div>
+              <div>
+                <p className="text-sm text-muted">Recommended plan</p>
+                <p className="text-2xl font-bold">{summary.recommendedPlan}</p>
+                <p className="text-xs text-subtle">
+                  Based on company size, industry and risk level
+                  {summary.recommendedPlanSource === "ml" ? " (AI model)" : " (scoring rule)"}
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center gap-3">
+              <Badge tone="warning">Draft</Badge>
+              <ButtonLink href="/#pricing" variant="outline">
+                View plans
+              </ButtonLink>
+            </div>
+          </CardBody>
+        </Card>
+      )}
 
       <div className="mt-4 grid gap-4 xl:grid-cols-2">
         <Card>

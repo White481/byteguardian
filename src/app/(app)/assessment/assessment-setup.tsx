@@ -83,7 +83,7 @@ export function AssessmentSetup() {
       <PageHeader
         title="Assessment Setup"
         description="Choose the scope and framework for your assessment."
-        actions={<MockBadge label="Mock question set" />}
+        actions={<MockBadge label="Draft question set" />}
       />
 
       {open && (

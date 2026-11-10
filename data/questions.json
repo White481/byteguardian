@@ -1,0 +1,399 @@
+{
+  "framework": "nist-csf-2",
+  "version": "0.2-draft",
+  "status": "DRAFT — review with the cyber team before replacing data/mock/questions.mock.json",
+  "notes": "IDs are NIST CSF 2.0 subcategories. Extra fields (cisSafeguards, cisIg, difficulty, critical) are used by the scoring rules and the synthetic data generator; the web app ignores them. 20 questions; quick set = 10 (one or more per function).",
+  "questions": [
+    {
+      "id": "GV.PO-01",
+      "function": "GV",
+      "category": "GV.PO",
+      "categoryName": "Policy",
+      "text": "Does your organization have a written information security policy that management has approved and staff can access?",
+      "description": "Partially = a policy exists but is outdated (older than 2 years) or not shared with staff.",
+      "evidenceRequired": true,
+      "sets": [
+        "full",
+        "quick"
+      ],
+      "cisSafeguards": [
+        "CIS 14.1 (policy-driven awareness)"
+      ],
+      "cisIg": 1,
+      "difficulty": 0.1,
+      "critical": false
+    },
+    {
+      "id": "GV.RR-02",
+      "function": "GV",
+      "category": "GV.RR",
+      "categoryName": "Roles, Responsibilities & Authorities",
+      "text": "Is a specific person or team named as responsible for cybersecurity, with time and authority to do the job?",
+      "description": "Partially = someone handles security informally, on top of another job, with no clear authority.",
+      "evidenceRequired": false,
+      "sets": [
+        "full"
+      ],
+      "cisSafeguards": [
+        "CIS 17.1"
+      ],
+      "cisIg": 1,
+      "difficulty": 0.15,
+      "critical": false
+    },
+    {
+      "id": "GV.SC-07",
+      "function": "GV",
+      "category": "GV.SC",
+      "categoryName": "Cybersecurity Supply Chain Risk Management",
+      "text": "Do you check the security of suppliers and IT service providers that can access your systems or data?",
+      "description": "Partially = only for some suppliers, or only when the contract is signed.",
+      "evidenceRequired": true,
+      "sets": [
+        "full"
+      ],
+      "cisSafeguards": [
+        "CIS 15.1",
+        "CIS 15.4",
+        "CIS 15.5"
+      ],
+      "cisIg": 2,
+      "difficulty": 0.35,
+      "critical": false
+    },
+    {
+      "id": "ID.AM-01",
+      "function": "ID",
+      "category": "ID.AM",
+      "categoryName": "Asset Management",
+      "text": "Do you keep an up-to-date inventory of all computers, servers and network devices?",
+      "description": "Partially = an inventory exists but is incomplete or not updated in the last 6 months.",
+      "evidenceRequired": false,
+      "sets": [
+        "full",
+        "quick"
+      ],
+      "cisSafeguards": [
+        "CIS 1.1"
+      ],
+      "cisIg": 1,
+      "difficulty": 0.1,
+      "critical": false
+    },
+    {
+      "id": "ID.AM-02",
+      "function": "ID",
+      "category": "ID.AM",
+      "categoryName": "Asset Management",
+      "text": "Do you keep an up-to-date list of the software and cloud services your organization uses?",
+      "description": "Partially = a list exists but is incomplete or not updated in the last 6 months.",
+      "evidenceRequired": false,
+      "sets": [
+        "full"
+      ],
+      "cisSafeguards": [
+        "CIS 2.1"
+      ],
+      "cisIg": 1,
+      "difficulty": 0.15,
+      "critical": false
+    },
+    {
+      "id": "ID.AM-07",
+      "function": "ID",
+      "category": "ID.AM",
+      "categoryName": "Asset Management",
+      "text": "Do you know where your important and personal data is stored and who can access it (for example a PDPA record of processing)?",
+      "description": "Partially = known for some systems only, or not written down.",
+      "evidenceRequired": true,
+      "sets": [
+        "full"
+      ],
+      "cisSafeguards": [
+        "CIS 3.2"
+      ],
+      "cisIg": 1,
+      "difficulty": 0.25,
+      "critical": false
+    },
+    {
+      "id": "ID.RA-01",
+      "function": "ID",
+      "category": "ID.RA",
+      "categoryName": "Risk Assessment",
+      "text": "Do you regularly scan your systems for vulnerabilities and record what you find?",
+      "description": "Partially = scans happen only occasionally (less than once a quarter) or results are not tracked.",
+      "evidenceRequired": false,
+      "sets": [
+        "full"
+      ],
+      "cisSafeguards": [
+        "CIS 7.1",
+        "CIS 7.5",
+        "CIS 7.6"
+      ],
+      "cisIg": 2,
+      "difficulty": 0.25,
+      "critical": false
+    },
+    {
+      "id": "PR.AA-03",
+      "function": "PR",
+      "category": "PR.AA",
+      "categoryName": "Identity Management, Authentication & Access Control",
+      "text": "Is multi-factor authentication (MFA) required for email, remote access and admin accounts?",
+      "description": "Partially = MFA is used for some of these but not all.",
+      "evidenceRequired": false,
+      "sets": [
+        "full",
+        "quick"
+      ],
+      "cisSafeguards": [
+        "CIS 6.3",
+        "CIS 6.4",
+        "CIS 6.5"
+      ],
+      "cisIg": 1,
+      "difficulty": 0.05,
+      "critical": true
+    },
+    {
+      "id": "PR.AA-05",
+      "function": "PR",
+      "category": "PR.AA",
+      "categoryName": "Identity Management, Authentication & Access Control",
+      "text": "Do staff only get the access they need for their job, with admin rights limited and access reviewed regularly?",
+      "description": "Partially = access is limited but never reviewed, or many users have admin rights.",
+      "evidenceRequired": false,
+      "sets": [
+        "full"
+      ],
+      "cisSafeguards": [
+        "CIS 5.4",
+        "CIS 6.1",
+        "CIS 6.2"
+      ],
+      "cisIg": 1,
+      "difficulty": 0.2,
+      "critical": false
+    },
+    {
+      "id": "PR.AT-01",
+      "function": "PR",
+      "category": "PR.AT",
+      "categoryName": "Awareness & Training",
+      "text": "Do all staff receive security awareness training (for example phishing training) at least once a year?",
+      "description": "Partially = only some staff, or only at onboarding.",
+      "evidenceRequired": false,
+      "sets": [
+        "full",
+        "quick"
+      ],
+      "cisSafeguards": [
+        "CIS 14.1",
+        "CIS 14.2"
+      ],
+      "cisIg": 1,
+      "difficulty": 0.15,
+      "critical": false
+    },
+    {
+      "id": "PR.DS-01",
+      "function": "PR",
+      "category": "PR.DS",
+      "categoryName": "Data Security",
+      "text": "Is sensitive data encrypted on laptops, servers and in cloud storage?",
+      "description": "Partially = encrypted on some devices or storage only.",
+      "evidenceRequired": false,
+      "sets": [
+        "full"
+      ],
+      "cisSafeguards": [
+        "CIS 3.6",
+        "CIS 3.11"
+      ],
+      "cisIg": 1,
+      "difficulty": 0.2,
+      "critical": false
+    },
+    {
+      "id": "PR.DS-11",
+      "function": "PR",
+      "category": "PR.DS",
+      "categoryName": "Data Security",
+      "text": "Are backups of important data made automatically, kept separate from the main network, and test-restored?",
+      "description": "Partially = backups exist but are never test-restored, or are stored on the same network.",
+      "evidenceRequired": true,
+      "sets": [
+        "full",
+        "quick"
+      ],
+      "cisSafeguards": [
+        "CIS 11.2",
+        "CIS 11.4",
+        "CIS 11.5"
+      ],
+      "cisIg": 1,
+      "difficulty": 0.1,
+      "critical": true
+    },
+    {
+      "id": "PR.IR-01",
+      "function": "PR",
+      "category": "PR.IR",
+      "categoryName": "Technology Infrastructure Resilience",
+      "text": "Is your network protected by a firewall, with important systems separated from staff and guest Wi-Fi?",
+      "description": "Partially = a firewall exists but the network is not separated, or rules are never reviewed.",
+      "evidenceRequired": false,
+      "sets": [
+        "full"
+      ],
+      "cisSafeguards": [
+        "CIS 4.4",
+        "CIS 4.5",
+        "CIS 12.2"
+      ],
+      "cisIg": 1,
+      "difficulty": 0.1,
+      "critical": false
+    },
+    {
+      "id": "PR.PS-02",
+      "function": "PR",
+      "category": "PR.PS",
+      "categoryName": "Platform Security",
+      "text": "Are security updates for operating systems and applications installed within a set time (for example 30 days)?",
+      "description": "Partially = updates are installed, but with no set timeline or not on all systems.",
+      "evidenceRequired": false,
+      "sets": [
+        "full",
+        "quick"
+      ],
+      "cisSafeguards": [
+        "CIS 7.3",
+        "CIS 7.4"
+      ],
+      "cisIg": 1,
+      "difficulty": 0.15,
+      "critical": false
+    },
+    {
+      "id": "PR.PS-05",
+      "function": "PR",
+      "category": "PR.PS",
+      "categoryName": "Platform Security",
+      "text": "Is installing or running unapproved software blocked on company computers?",
+      "description": "Partially = staff are told not to, but it is not technically blocked.",
+      "evidenceRequired": false,
+      "sets": [
+        "full"
+      ],
+      "cisSafeguards": [
+        "CIS 2.3",
+        "CIS 2.5"
+      ],
+      "cisIg": 2,
+      "difficulty": 0.35,
+      "critical": false
+    },
+    {
+      "id": "DE.CM-01",
+      "function": "DE",
+      "category": "DE.CM",
+      "categoryName": "Continuous Monitoring",
+      "text": "Are network activity and security logs collected centrally and reviewed for suspicious events?",
+      "description": "Partially = logs are collected but rarely reviewed, or only on some systems.",
+      "evidenceRequired": false,
+      "sets": [
+        "full",
+        "quick"
+      ],
+      "cisSafeguards": [
+        "CIS 8.2",
+        "CIS 8.11",
+        "CIS 13.1"
+      ],
+      "cisIg": 2,
+      "difficulty": 0.35,
+      "critical": false
+    },
+    {
+      "id": "DE.CM-09",
+      "function": "DE",
+      "category": "DE.CM",
+      "categoryName": "Continuous Monitoring",
+      "text": "Do all computers and servers run up-to-date anti-malware or endpoint protection (EDR) that alerts someone?",
+      "description": "Partially = installed on some devices, or alerts are not checked.",
+      "evidenceRequired": false,
+      "sets": [
+        "full",
+        "quick"
+      ],
+      "cisSafeguards": [
+        "CIS 10.1",
+        "CIS 13.2"
+      ],
+      "cisIg": 1,
+      "difficulty": 0.05,
+      "critical": false
+    },
+    {
+      "id": "RS.CO-02",
+      "function": "RS",
+      "category": "RS.CO",
+      "categoryName": "Incident Response Reporting & Communication",
+      "text": "Do you know who must be told about a security incident and how fast (for example, PDPA requires notifying the regulator within 72 hours of a personal data breach)?",
+      "description": "Partially = some contacts are known but there is no written list or timeline.",
+      "evidenceRequired": false,
+      "sets": [
+        "full"
+      ],
+      "cisSafeguards": [
+        "CIS 17.2"
+      ],
+      "cisIg": 1,
+      "difficulty": 0.3,
+      "critical": false
+    },
+    {
+      "id": "RS.MA-01",
+      "function": "RS",
+      "category": "RS.MA",
+      "categoryName": "Incident Management",
+      "text": "Do you have a written incident response plan that says who does what when a security incident happens?",
+      "description": "Partially = the plan exists but has never been tested or reviewed.",
+      "evidenceRequired": true,
+      "sets": [
+        "full",
+        "quick"
+      ],
+      "cisSafeguards": [
+        "CIS 17.1",
+        "CIS 17.4"
+      ],
+      "cisIg": 2,
+      "difficulty": 0.25,
+      "critical": false
+    },
+    {
+      "id": "RC.RP-01",
+      "function": "RC",
+      "category": "RC.RP",
+      "categoryName": "Incident Recovery Plan Execution",
+      "text": "Do you have a tested plan to restore critical systems, with target recovery times?",
+      "description": "Partially = a recovery plan exists but has no recovery time targets or has not been tested.",
+      "evidenceRequired": false,
+      "sets": [
+        "full",
+        "quick"
+      ],
+      "cisSafeguards": [
+        "CIS 11.1",
+        "CIS 11.5"
+      ],
+      "cisIg": 2,
+      "difficulty": 0.3,
+      "critical": false
+    }
+  ]
+}

@@ -26,7 +26,11 @@ export function Assistant() {
   const [isMock, setIsMock] = useState(false);
   const bottom = useRef<HTMLDivElement>(null);
 
-  useEffect(() => bottom.current?.scrollIntoView({ behavior: "smooth", block: "end" }), [messages, sending]);
+  useEffect(() => {
+    // Braces matter: newer browsers make scrollIntoView return a Promise, and React
+    // crashes if an effect returns anything other than a cleanup function.
+    bottom.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+  }, [messages, sending]);
 
   async function send(text: string) {
     const content = text.trim();

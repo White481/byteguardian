@@ -161,7 +161,7 @@ function QuestionnaireForm({ detail }: { detail: AssessmentDetail }) {
       <PageHeader
         title="Security Assessment"
         description={`${FRAMEWORK_LABEL[detail.framework]} · ${answeredCount} of ${questions.length} answered`}
-        actions={<MockBadge label="Mock questions" />}
+        actions={<MockBadge label="Draft questions" />}
       />
 
       <div className="grid gap-4 lg:grid-cols-[260px_1fr]">

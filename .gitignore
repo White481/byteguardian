@@ -24,3 +24,8 @@ next-env.d.ts
 npm-debug.log*
 .vscode/
 .idea/
+
+# python
+__pycache__/
+.venv/
+.venv/
